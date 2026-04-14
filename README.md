@@ -15,13 +15,13 @@
 
 ## Project Description
 
-[Brief description of your project and chosen domain]
+This project analyses web-based job market data using a dataset of Data Analyst job postings collected from Google Search results. The aim is to explore trends in salaries, required skills, job locations and benefits. The project applies a full data processing pipeline including data loading, cleaning, transformation, analysis and visualisation using Python tools. The goal is to extract meaningful insights about the current demand in the data analyst job market.
 
 ## Dataset
 
-- **Name:** [Dataset name]
-- **Source:** [Source URL]
-- **Size:** [Approximate size]
-- **Format:** CSV/JSON
+- **Name:** Data Analyst Job Postings [Pay, Skills, Benefits]
+- **Source:** https://www.kaggle.com/datasets/lukebarousse/data-analyst-job-postings-google-search
+- **Size:** ~10,000+ records
+- **Format:** CSV
 
 ## Project Structure
