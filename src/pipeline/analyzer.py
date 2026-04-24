@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 def analyze(df, top_n=20):
     # Analyzes dataset and return insights
@@ -40,5 +41,9 @@ def analyze(df, top_n=20):
     skills = ["python", "sql", "excel", "tableau", "power bi"]
     skill_counts = {skill: df[skill].sum() for skill in skills if skill in df.columns}
     print("Skill demand:", skill_counts)
+
+    # Average title length
+    avg_title_length = np.mean(df["title"].str.len())
+    print("Average job title length:", avg_title_length)
 
     return top_companies
