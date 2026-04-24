@@ -1,6 +1,6 @@
-def analyse(df, top_n=20):
-    # Analyses dataset n return insights
-    print("Running analyse...")
+def analyze(df, top_n=20):
+    # Analyzes dataset n return insights
+    print("Running analyze...")
 
     results = {}
 
