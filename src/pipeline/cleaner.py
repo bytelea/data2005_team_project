@@ -14,6 +14,7 @@ def clean_data(df):
     # Clean text
     df["title"] = df["title"].str.strip()
     df["company_name"] = df["company_name"].str.strip()
+    df["location"] = df["location"].str.strip().str.lower()
 
     # Drop useless columns 
     df = df.drop(columns=[
