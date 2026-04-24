@@ -25,3 +25,49 @@ This project analyses web-based job market data using a dataset of Data Analyst 
 - **Format:** CSV
 
 ## Project Structure
+
+
+
+
+## Data Analysis (Monike)
+
+As the Data Analyst, I was responsible for extracting insights from the cleaned dataset using Pandas.
+
+### Key Analysis Performed
+
+- **Top Companies Hiring**
+  - Identified companies with the highest number of job postings.
+  - Example: Upwork, Talentify.io, and Walmart were among the top recruiters.
+
+- **Top Job Locations**
+  - Analyzed the most common job locations.
+  - Found a high number of roles listed as "Anywhere" or "United States", indicating strong remote availability.
+
+- **Top Job Titles**
+  - Extracted the most frequent job roles.
+  - "Data Analyst" and "Senior Data Analyst" were the most common positions.
+
+- **Remote Work Analysis**
+  - Calculated the percentage of remote jobs.
+  - Result showed nearly all roles were remote (~100%).
+
+- **Skill Demand Analysis**
+  - Analyzed job descriptions to detect in-demand skills.
+  - Most requested skills:
+    - Excel
+    - SQL
+    - Python
+    - Tableau
+    - Power BI
+
+### Tools & Techniques Used
+
+- **Pandas** for data manipulation and analysis
+- **Vectorised operations** (e.g. `value_counts()`, `.mean()`, `.sum()`)
+- Feature extraction from text data (`str.contains()`)
+
+### Output
+
+The analysis results are:
+- Displayed in the terminal
+- Exported as CSV files for further use
