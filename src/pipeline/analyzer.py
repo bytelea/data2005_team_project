@@ -12,7 +12,15 @@ def analyze(df, top_n=20):
         .reset_index()
     )
     top_companies.columns = ["company_name", "job_count"]
-    
+
+    # Top job titles
+    top_jobs = (
+        df["title"]
+        .value_counts()
+        .head(10)
+    )
+    print("\nTop Job Titles:\n", top_jobs)
+
     # Top locations
     top_locations = (
         df["location"]
