@@ -33,6 +33,7 @@ def analyze(df, top_n=20):
     print("\nTop Locations:\n", top_locations)
 
     # Remote job percentage 
+    remote_percentage = None
     if "work_from_home" in df.columns:
         remote_percentage = df["work_from_home"].mean() * 100
         print(f"Remote jobs: {remote_percentage:.2f}%")
@@ -46,4 +47,12 @@ def analyze(df, top_n=20):
     avg_title_length = np.mean(df["title"].str.len())
     print("Average job title length:", avg_title_length)
 
-    return top_companies
+    return {
+    "top_companies": top_companies,
+    "top_jobs": top_jobs,
+    "top_locations": top_locations,
+    "skill_counts": skill_counts,
+    "remote_percentage": remote_percentage,
+    "avg_title_length": avg_title_length,
+    "total_jobs": len(df)
+}
