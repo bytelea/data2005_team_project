@@ -5,6 +5,29 @@ def analyze(df, top_n=20):
     # Analyzes dataset and return insights
     print("Running analyze...")
 
+    def categorize_posted(text):
+        if pd.isna(text):
+            return None
+
+        text = str(text).lower()
+
+        if "hour" in text:
+            return "last 24 hours"
+        elif "day" in text:
+            return "last 7 days"
+        elif "week" in text:
+            return "last month"
+        elif "month" in text:
+            return "older"
+        else:
+            return "other"
+
+    df["posting_recency"] = df["posted_at"].apply(categorize_posted)
+
+    recency_counts = df["posting_recency"].value_counts()
+
+    print("\nPosting Recency:\n", recency_counts)
+
     # Top companies 
     top_companies = (
         df["company_name"]
@@ -47,6 +70,10 @@ def analyze(df, top_n=20):
     avg_title_length = np.mean(df["title"].str.len())
     print("Average job title length:", avg_title_length)
 
+    # Average description length
+    avg_description_length = df["description"].str.len().mean()
+    print("Average description length:", avg_description_length)
+
     return {
     "top_companies": top_companies,
     "top_jobs": top_jobs,
@@ -54,5 +81,7 @@ def analyze(df, top_n=20):
     "skill_counts": skill_counts,
     "remote_percentage": remote_percentage,
     "avg_title_length": avg_title_length,
-    "total_jobs": len(df)
+    "avg_description_length": avg_description_length,
+    "posting_recency": recency_counts,
+    "total_jobs": len(df),
 }

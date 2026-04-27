@@ -18,7 +18,7 @@ def clean_data(df):
 
     # Drop useless columns 
     df = df.drop(columns=[
-        "thumbnail", "job_id", "Unanamed: 0"
+        "thumbnail", "job_id", "Unnamed: 0"
     ], errors="ignore")
 
     return df
