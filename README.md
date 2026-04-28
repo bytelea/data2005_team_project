@@ -53,11 +53,16 @@ data2005_team_project/
 ```
 
 ## How to Run
-1. Install dependencies:
-pip install -r requirements.txt
+1. Download the dataset from Kaggle:
+   https://www.kaggle.com/datasets/lukebarousse/data-analyst-job-postings-google-search
+   
+2. Place the CSV file in the data/ folder
 
-2. Run the full pipeline:
-python run.py
+3. Install dependencies:
+   pip install -r requirements.txt
+
+4. Run the full pipeline:
+   python run.py
 
 
 ## Data Pipeline
