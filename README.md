@@ -61,7 +61,7 @@ python run.py
 
 
 ## Data Pipeline
-![Pipeline Diagram](data/processed/pipeline_diagram.png)
+![Pipeline Diagram](pipeline_diagram.png)
 
 Raw CSV -> Load -> Clean -> Extract Features -> Analyse -> Visualise -> Export
 
