@@ -25,6 +25,7 @@ This project analyses web-based job market data using a dataset of Data Analyst 
 - **Format:** CSV
 
 ## Project Structure
+```
 data2005_team_project/
 |-- data/
 |   └──processed/
@@ -49,6 +50,7 @@ data2005_team_project/
 |-- .gitignore
 |-- LICENSE
 └── README.md
+```
 
 ## Data Analysis (Monike)
 
