@@ -24,6 +24,7 @@ def visualize(results, output_dir=CHARTS_DIR):
     plot_top_jobs(results.get("top_jobs"), output_dir)
     plot_top_locations(results.get("top_locations"), output_dir)
     plot_skill_demand(results.get("skill_counts"), output_dir)
+    plot_role_by_company(results.get("role_by_company"), output_dir)
     
     print(f"Charts saved to: {output_dir}")
 
@@ -165,5 +166,34 @@ def plot_skill_demand(skill_counts, output_dir):
 
     save_chart(output_dir / "skill_demand.png")
 
+# Chart 5: Top companies hiring for each role (stacekd bar chart)
+# Shows which companies dominate specific job titles
+#Each company is normalised to 100% so that role proportions
+# can be compared fairly between companies regardless of size.
+def plot_role_by_company(role_by_company, output_dir):
+    #missing empty data check
+    if role_by_company is None or role_by_company.empty:
+        return
+    #copy to not modify orginal dataset
+    df = role_by_company.copy()
 
+    # Convered to % so each company = 100%
+    df_pct = df.div(df.sum(axis=1), axis=0) * 100
+
+    #  top 5 companies 
+    top_companies = df.sum(axis=1).sort_values(ascending=False).head(5).index
+    #filter to only have top companies
+    df_pct = df_pct.loc[top_companies]
+
+    # Plot stacked bar
+    df_pct.plot(kind="bar", stacked=True, figsize=(10, 6), colormap="tab10")
+
+#labels and titles
+    plt.title("Role Distribution by Company (%)")
+    plt.xlabel("Company")
+    plt.ylabel("Percentage of Job Roles")
+    plt.xticks(rotation=30, ha="right")
+    plt.legend(title="Job Title", bbox_to_anchor=(1.01, 1))
+
+    save_chart(output_dir / "role_by_company_stacked.png")
 
