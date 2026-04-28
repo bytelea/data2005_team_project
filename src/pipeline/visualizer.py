@@ -1,3 +1,120 @@
-def visualize(results):
+from pathlib import Path
+
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+
+#visual theme for all charst
+sns.set_theme(style="whitegrid", palette="muted")
+
+#directory for saving cahrts
+CHARTS_DIR = Path("outputs/figures")
+
+
+#to generate all vsiualizations
+def visualize(results, output_dir=CHARTS_DIR):
+    
     print("Running visualize...")
-    print(results)
+    #ensure directory exist
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    #individual charts
+    plot_top_companies(results.get("top_companies"), output_dir)
+    plot_top_jobs(results.get("top_jobs"), output_dir)
+    plot_top_locations(results.get("top_locations"), output_dir)
+    
+    print(f"Charts saved to: {output_dir}")
+
+#to format and save charts
+def save_chart(path):
+    plt.tight_layout()
+    plt.savefig(path, dpi=150, bbox_inches="tight")
+    plt.close()
+
+
+#Chart 1: Top companies (vertical bar) 
+def plot_top_companies(df, output_dir):
+
+    if df is None or df.empty:
+        return
+    #top 10 companies sort by job count
+    top10 = df.head(10).sort_values("job_count", ascending=False)
+
+    plt.figure(figsize=(10, 6))
+    #create bar chart
+    bars = plt.bar(top10["company_name"], top10["job_count"], color="steelblue")
+    #value labels above bar
+    for bar, val in zip(bars, top10["job_count"]):
+        plt.text(bar.get_x() + bar.get_width() / 2,
+                 bar.get_height() + top10["job_count"].max() * 0.01,
+                 str(int(val)), ha="center", fontsize=8)
+
+    #ttles adn labels
+    plt.title("Top 10 Companies by Number of Job Postings")
+    plt.xlabel("Company")
+    plt.ylabel("Number of Postings")
+    plt.xticks(rotation=30, ha="right")
+
+    save_chart(output_dir / "top_companies.png")
+
+
+# Chart 2: Top job titles (lollipop)
+def plot_top_jobs(top_jobs, output_dir):
+
+    if top_jobs is None or top_jobs.empty:
+        return
+    #reste indexand rename colums
+    df = top_jobs.reset_index()
+    df.columns = ["title", "count"]
+    df = df.sort_values("count")
+
+    plt.figure(figsize=(10, 6))
+    #horizontal lines for lollipop stick
+    plt.hlines(df["title"], 0, df["count"], linewidth=2, color="steelblue")
+    #cirlces at the end
+    plt.plot(df["count"], df["title"], "o", color="steelblue", markersize=8)
+
+    #value labe;s
+    for _, row in df.iterrows():
+        plt.text(row["count"] + df["count"].max() * 0.01, row["title"],
+                 str(int(row["count"])), va="center", fontsize=8)
+        
+    #titles and labels
+    plt.title("Top 10 Job Titles")
+    plt.xlabel("Number of Postings")
+    plt.ylabel("Job Title")
+    plt.xlim(0, df["count"].max() * 1.15)
+
+    save_chart(output_dir / "top_job_titles.png")
+
+
+#Chart 3: Top locations with average line 
+def plot_top_locations(df, output_dir):
+
+    if df is None or df.empty:
+        return
+    #   slect top 10 locations
+    df = df.head(10).copy()
+    #average job ocunt
+    avg = df["job_count"].mean()
+
+    plt.figure(figsize=(10, 6))
+    #Bar chart
+    bars = plt.bar(df["location"], df["job_count"], color="steelblue")
+    #average line
+    plt.axhline(
+        avg, color="red", linestyle="--", linewidth=1.2, label=f"Average ({avg:.0f})")
+
+    #highlight bars above avg
+    for bar, val in zip(bars, df["job_count"]):
+        if val >= avg:
+            bar.set_color("darkorange")
+    #titels and labels
+    plt.title("Top 10 Job Locations (orange = above average)")
+    plt.xlabel("Location")
+    plt.ylabel("Number of Postings")
+    plt.xticks(rotation=30, ha="right")#rotate labels
+    plt.legend() #legend
+
+    save_chart(output_dir / "top_locations.png")
