@@ -77,6 +77,7 @@ def analyze(df, top_n=20):
     #variables for visualisation of role by company
     top_company_names = top_companies.head(10)["company_name"].tolist()
     top_title_names = top_jobs.head(8).index.tolist()
+    present_skills = [s for s in skills if s in df.columns]
     #shows top job roels across top companies
     role_by_company = (
         df[
@@ -87,6 +88,14 @@ def analyze(df, top_n=20):
         .size()
         .unstack(fill_value=0)
     )
+
+    #which skills are most demanded for top job titles
+    skills_by_title = (
+        df[df["title"].isin(top_title_names)]
+        .groupby("title")[present_skills]
+        .sum()
+        )
+
 
     return {
     "top_companies": top_companies,
@@ -99,4 +108,5 @@ def analyze(df, top_n=20):
     "posting_recency": recency_counts,
     "total_jobs": len(df),
     "role_by_company": role_by_company,
+    "skills_by_title": skills_by_title,
 }
