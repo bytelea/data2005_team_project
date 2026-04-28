@@ -113,8 +113,34 @@ As the data analyst, Monike was responsible for extracting meaningful insights f
   - Used NumPy to compute summary statistics such as average job title length
 
 ### Tools & Techniques Used
-
 - **Pandas** for data manipulation, aggregation and analysis
 - **NumPy** for statistical computations
 - **Vectorised operations** (`value_counts()`, `.mean()`, `.sum()`)
 - **Text-based feature extraction** using `str.contains()`
+
+## Visualisations (Hania)
+As the visualisation lead, Hania was responsible for creating all charts and graphs that communicate the project's findings visually.
+
+### Charts Produced
+
+- **Top In-Demand Skills** - horizontal bar chart of the most frequently requested skills across job postings
+- **Average Salary by Job Title** - comparing mean salaries across the top job titles
+- **Job Postings by State** - which US states have the most data analyst roles
+- **Average Salary by Seniority** - comparing compensation across junior, mid, senior and lead levels
+- **Job Postings Over Time** - monthly line chart tracking posting trends across the dataset
+
+### Tools & Techniques Used
+
+- **Seaborn** for styled statistical charts using the `whitegrid` theme
+- **Matplotlib** for figure creation, layout and saving charts as PNG files
+- All charts saved automatically to `data/processed/charts/`
+
+## Documentation (Lea)
+As the documentation lead, Lea was responsible for maintaining clear and organised project documentation throughout.
+
+- Created and set up the GitHub repository for the team, including initial folder structure, `.gitignore` and `LICENSE`
+- Wrote and maintained the README, documenting each team member's contributions
+- Produced the data pipeline diagram showing the flow from raw data to final output
+- Ensured the code structure was clearly described and navigable for anyone running the project
+- Created and designed the powerpoint presentation
+- Ensured all consistent comments throughout the code 
