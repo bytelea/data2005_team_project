@@ -23,6 +23,7 @@ def visualize(results, output_dir=CHARTS_DIR):
     plot_top_companies(results.get("top_companies"), output_dir)
     plot_top_jobs(results.get("top_jobs"), output_dir)
     plot_top_locations(results.get("top_locations"), output_dir)
+    plot_skill_demand(results.get("skill_counts"), output_dir)
     
     print(f"Charts saved to: {output_dir}")
 
@@ -34,6 +35,7 @@ def save_chart(path):
 
 
 #Chart 1: Top companies (vertical bar) 
+# bar chart of top 10 companies by number of job postings
 def plot_top_companies(df, output_dir):
 
     if df is None or df.empty:
@@ -60,6 +62,7 @@ def plot_top_companies(df, output_dir):
 
 
 # Chart 2: Top job titles (lollipop)
+#lollipop chart of top job titles by frequency
 def plot_top_jobs(top_jobs, output_dir):
 
     if top_jobs is None or top_jobs.empty:
@@ -90,6 +93,7 @@ def plot_top_jobs(top_jobs, output_dir):
 
 
 #Chart 3: Top locations with average line 
+#bar chart of top job locations, highlighting location above avg of posting
 def plot_top_locations(df, output_dir):
 
     if df is None or df.empty:
@@ -118,3 +122,48 @@ def plot_top_locations(df, output_dir):
     plt.legend() #legend
 
     save_chart(output_dir / "top_locations.png")
+
+
+#Chart 4: Skill demand (bar + donut 
+# combined visualisation of skill demnad
+def plot_skill_demand(skill_counts, output_dir):
+    if not skill_counts:
+        return
+    #convert dict to Dataframe to easily manipulate
+    df = pd.DataFrame(list(skill_counts.items()), columns=["skill", "count"])
+    #sort skills by demand
+    df = df.sort_values("count", ascending=False)
+    total = df["count"].sum()
+    df["percentage"] = df["count"] / total * 100
+    #2 subplots
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+    # Left: bar chart
+    #titels adn labels
+    axes[0].bar(df["skill"].str.title(), df["count"], color="steelblue")
+    axes[0].set_title("Skill Demand (Count)")
+    axes[0].set_xlabel("Skill")
+    axes[0].set_ylabel("Number of Postings")
+    
+    #value labels over bars
+    for i, val in enumerate(df["count"]):
+        axes[0].text(i, val + 10, str(int(val)), ha="center", fontsize=9)
+
+    # Right: donut chart
+    wedges, texts, autotexts = axes[1].pie(
+        df["percentage"], #percentages
+        labels=df["skill"].str.title(), #skill labels
+        autopct="%1.1f%%", # show %
+        startangle=140, #rotate
+        wedgeprops={"width": 0.5}   #donut chart
+    )
+    #titele for donut
+    axes[1].set_title("Skill Demand (% Share)")
+    
+    #main title
+    plt.suptitle("In-Demand Skills Across Job Postings", fontsize=13, fontweight="bold")
+
+    save_chart(output_dir / "skill_demand.png")
+
+
+
