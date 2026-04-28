@@ -25,6 +25,7 @@ def visualize(results, output_dir=CHARTS_DIR):
     plot_top_locations(results.get("top_locations"), output_dir)
     plot_skill_demand(results.get("skill_counts"), output_dir)
     plot_role_by_company(results.get("role_by_company"), output_dir)
+    plot_skills_by_title(results.get("skills_by_title"), output_dir)
     
     print(f"Charts saved to: {output_dir}")
 
@@ -197,3 +198,23 @@ def plot_role_by_company(role_by_company, output_dir):
 
     save_chart(output_dir / "role_by_company_stacked.png")
 
+# Chart 6: Skill demand by job title (heatmap)
+#heatmap showing which skills are most demanded for each top job title
+def plot_skills_by_title(skills_by_title, output_dir):
+    if skills_by_title is None or skills_by_title.empty:
+        return
+
+    df = skills_by_title.copy()
+    df.columns = [c.title() for c in df.columns]
+
+    # Convert counts to percentage per job title
+    df_pct = df.div(df.sum(axis=1), axis=0) * 100
+
+    plt.figure(figsize=(10, 6))
+    sns.heatmap(df_pct, annot=True, cmap="YlGnBu", fmt=".1f")
+
+    plt.title("Skill Demand by Job Title (%)")
+    plt.xlabel("Skill")
+    plt.ylabel("Job Title")
+
+    save_chart(output_dir / "skills_by_title_heatmap.png")
