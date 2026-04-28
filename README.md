@@ -123,24 +123,42 @@ As the visualisation lead, Hania was responsible for creating all charts and gra
 
 ### Charts Produced
 
-- **Top In-Demand Skills** - horizontal bar chart of the most frequently requested skills across job postings
-- **Average Salary by Job Title** - comparing mean salaries across the top job titles
-- **Job Postings by State** - which US states have the most data analyst roles
-- **Average Salary by Seniority** - comparing compensation across junior, mid, senior and lead levels
-- **Job Postings Over Time** - monthly line chart tracking posting trends across the dataset
+- **Top Companies by Job Postings**
+  - Vertical bar chart showing the companies with the highest number of job listings
+
+- **Top Job Titles (Lollipop Chart)**
+  - Visual representation of the most common job roles, using a lollipop chart for clearer comparison
+
+- **Top Job Locations**
+  - Bar chart highlighting locations with the highest number of postings, including an average reference line to identify >average regions
+
+- **Skill Demand (Bar + Donut Chart)**
+  - Combined visualisation showing:
+    * absolute demand for each skill (bar chart)
+    * relative percentage share (donut chart)
+
+- **Role Distribution by Company (Stacked Bar Chart)**
+  - Shows how different companies distribute hiring across top job roles. Each company is normalised to 100%, allowing fair comparison of hiring focus.
 
 ### Tools & Techniques Used
 
 - **Seaborn** for styled statistical charts using the `whitegrid` theme
 - **Matplotlib** for figure creation, layout and saving charts as PNG files
-- All charts saved automatically to `data/processed/charts/`
+- **Pandas DataFrames** Used to manipulate and transform analysed data for visualisation
+  
+**Chart Design Techniques**
+  - Data normalisation (percentage conversion for fair comparison
+  - Combined charts (bar + donut) to show both scale and proportion
+  - Highlighting (e.g. above-average values)
+  - Label annotations for clarity and readability
 
 ## Documentation (Lea)
 As the documentation lead, Lea was responsible for maintaining clear and organised project documentation throughout.
 
 - Created and set up the GitHub repository for the team, including initial folder structure, `.gitignore` and `LICENSE`
+- Delegated tasks and team member roles to best fit each person
 - Wrote and maintained the README, documenting each team member's contributions
 - Produced the data pipeline diagram showing the flow from raw data to final output
 - Ensured the code structure was clearly described and navigable for anyone running the project
 - Created and designed the powerpoint presentation
-- Ensured all consistent comments throughout the code 
+- Ensured all consistent comments throughout the code
