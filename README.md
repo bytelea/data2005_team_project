@@ -52,45 +52,95 @@ data2005_team_project/
 └── README.md
 ```
 
-## Data Analysis (Monike)
+## How to Run
+1. Install dependencies:
+pip install -r requirements.txt
 
-As the Data Analyst, I was responsible for extracting meaningful insights from the cleaned dataset using Python, primarily with Pandas and NumPy.
+2. Run the full pipeline:
+python run.py
+
+
+## Data Pipeline
+![Pipeline Diagram](data/processed/pipeline_diagram.png)
+
+Raw CSV -> Load -> Clean -> Extract Features -> Analyse -> Visualise -> Export
+
+## Data Engineering (Nada)
+As the data engineer, Nada set up the project structure and built the core processing modules that the entire pipeline depends on.
+
+### Key Work Performed
+- **Project Setup**
+  - Designed the overall pipeline architecture so all modules connect and run via `python run.py`
+
+- **Data Cleaning** (`cleaner.py`)
+  - Removed duplicate rows from the dataset
+  - Stripped extra whitespace from text columns
+  - Filled missing salary values with the column median
+  - Parsed the skills column from raw text strings into Python lists
+
+- **Feature Engineering** (`features.py`)
+  - Extracted year and month from date columns for time-series analysis
+  - Split location strings ("New York, NY") into separate city and state columns
+  - Classified job titles into seniority levels: junior, mid, senior, and lead
+
+### Tools & Techniques Used
+- **Pandas** for data manipulation and column operations
+- **Regex** for parsing location and zip code strings
+- **ast.literal_eval** for safely converting skill strings to lists
+
+## Data Analysis (Monike)
+As the data analyst, Monike was responsible for extracting meaningful insights from the cleaned dataset using Python, primarily with Pandas and NumPy.
 
 ### Key Analysis Performed
-
 - **Top Companies Hiring**
-  - Identified companies with the highest number of job postings using frequency analysis.
-  - Example: Upwork, Talentify.io, and Walmart were among the top recruiters.
+  - Identified companies with the highest number of job postings using frequency analysis (Upwork, Talentify.io and Walmart were among the top recruiters)
 
 - **Top Job Locations**
-  - Analyzed the most common job locations across the dataset.
-  - A large proportion of roles were listed as "Anywhere" or "United States", indicating a strong presence of remote or broadly available positions.
+  - Analysed the most common job locations across the dataset
+  - A large proportion of roles were listed as "Anywhere" or "United States", indicating a strong presence of remote positions
 
 - **Top Job Titles**
-  - Extracted the most frequent job roles using value counts.
-  - "Data Analyst" and "Senior Data Analyst" were the most common roles, followed by related positions such as Data Scientist and Business Data Analyst.
+  - Extracted the most frequent job roles using value counts
+  - "Data Analyst" and "Senior Data Analyst" were the most common roles
 
 - **Remote Work Analysis**
-  - Calculated the percentage of remote jobs using the `work_from_home` column.
-  - Results indicated that nearly all jobs in the dataset were remote (~100%).
+  - Calculated the percentage of remote jobs using the `work_from_home` column (nearly all jobs in the dataset were remote)
 
 - **Skill Demand Analysis**
-  - Performed feature extraction on job descriptions to detect in-demand technical skills.
-  - Created new columns for skills such as Python, SQL, Excel, Tableau, and Power BI.
-  - Analysis showed that Excel and SQL were the most frequently requested skills, followed by Python, Tableau, and Power BI.
+  - Performed feature extraction on job descriptions to detect in-demand technical skills (Excel and SQL were the most frequently requested skills, followed by Python, Tableau and Power BI)
 
 - **Statistical Insight**
-  - Used NumPy to compute summary statistics, such as the average job title length, demonstrating additional numerical analysis on the dataset.
+  - Used NumPy to compute summary statistics such as average job title length
+
+### Tools & Techniques Used
+- **Pandas** for data manipulation, aggregation and analysis
+- **NumPy** for statistical computations
+- **Vectorised operations** (`value_counts()`, `.mean()`, `.sum()`)
+- **Text-based feature extraction** using `str.contains()`
+
+## Visualisations (Hania)
+As the visualisation lead, Hania was responsible for creating all charts and graphs that communicate the project's findings visually.
+
+### Charts Produced
+
+- **Top In-Demand Skills** - horizontal bar chart of the most frequently requested skills across job postings
+- **Average Salary by Job Title** - comparing mean salaries across the top job titles
+- **Job Postings by State** - which US states have the most data analyst roles
+- **Average Salary by Seniority** - comparing compensation across junior, mid, senior and lead levels
+- **Job Postings Over Time** - monthly line chart tracking posting trends across the dataset
 
 ### Tools & Techniques Used
 
-- **Pandas** for data manipulation, aggregation, and analysis
-- **NumPy** for statistical computations
-- **Vectorised operations** (e.g. `value_counts()`, `.mean()`, `.sum()`) for efficient processing
-- **Text-based feature extraction** using `str.contains()` to analyse unstructured job descriptions
+- **Seaborn** for styled statistical charts using the `whitegrid` theme
+- **Matplotlib** for figure creation, layout and saving charts as PNG files
+- All charts saved automatically to `data/processed/charts/`
 
-### Output
+## Documentation (Lea)
+As the documentation lead, Lea was responsible for maintaining clear and organised project documentation throughout.
 
-The analysis results are:
-- Displayed in the terminal during pipeline execution
-- Exported as CSV files for further use in visualization and reporting
+- Created and set up the GitHub repository for the team, including initial folder structure, `.gitignore` and `LICENSE`
+- Wrote and maintained the README, documenting each team member's contributions
+- Produced the data pipeline diagram showing the flow from raw data to final output
+- Ensured the code structure was clearly described and navigable for anyone running the project
+- Created and designed the powerpoint presentation
+- Ensured all consistent comments throughout the code 
