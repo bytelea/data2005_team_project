@@ -74,6 +74,20 @@ def analyze(df, top_n=20):
     avg_description_length = df["description"].str.len().mean()
     print("Average description length:", avg_description_length)
 
+    #variables for visualisation of role by company
+    top_company_names = top_companies.head(10)["company_name"].tolist()
+    top_title_names = top_jobs.head(8).index.tolist()
+    #shows top job roels across top companies
+    role_by_company = (
+        df[
+            df["title"].isin(top_title_names) &
+            df["company_name"].isin(top_company_names)
+        ]
+        .groupby(["company_name", "title"])
+        .size()
+        .unstack(fill_value=0)
+    )
+
     return {
     "top_companies": top_companies,
     "top_jobs": top_jobs,
@@ -84,4 +98,5 @@ def analyze(df, top_n=20):
     "avg_description_length": avg_description_length,
     "posting_recency": recency_counts,
     "total_jobs": len(df),
+    "role_by_company": role_by_company,
 }
