@@ -25,9 +25,30 @@ This project analyses web-based job market data using a dataset of Data Analyst 
 - **Format:** CSV
 
 ## Project Structure
-
-
-
+data2005_team_project/
+|-- data/
+|   └──processed/
+|      |-- company_name.csv
+|      └── job_count.csv
+|-- src/
+|   └── pipeline
+|       |-- __init__.py
+|       |-- analyzer.py
+|       |-- cleaner.py
+|       |-- exporter.py
+|       |-- features.py
+|       |-- loader.py
+|       |-- pipeline.py
+|       |-- validator.py
+|       └── visualizer.py
+|-- tests/
+|   └── test_pipeline.py
+|-- run.py
+|-- conftest.py
+|-- requirements.txt
+|-- .gitignore
+|-- LICENSE
+└── README.md
 
 ## Data Analysis (Monike)
 
